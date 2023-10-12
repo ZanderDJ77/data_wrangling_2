@@ -1,0 +1,51 @@
+---
+title: "Data from the Web"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+library(rvest)
+library(httr)
+
+```
+Reading Drug Use talbe from the web
+```{r}
+url = "http://samhda.s3-us-gov-west-1.amazonaws.com/s3fs-public/field-uploads/2k15StateFiles/NSDUHsaeShortTermCHG2015.htm"
+drug_use_html = read_html(url)
+
+drug_use_html
+```
+
+```{r}
+marj_use_df = drug_use_html |> 
+  html_table() |> 
+  first() |> 
+  slice(-1)
+
+```
+
+Importing Star Wars Data from HTML Elements using a CSS Selector
+
+```{r}
+
+swm_url = 
+  "https://www.imdb.com/list/ls070150896/"
+
+swm_html = read_html(swm_url)
+```
+
+```{r}
+swm_title_vec =
+  swm_html |> 
+  html_elements(".lister-item-header a") |> 
+  html_text()
+
+swm_gross_rev = 
+  swm_html |> 
+  html_elements(":nth-child(7) span:nth-child(5)") |> 
+    html_text()
+swm_gross_rev
+
+```
+
