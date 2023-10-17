@@ -1,4 +1,4 @@
-Data from the Web
+Strings and Factors
 ================
 
 ``` r
@@ -159,3 +159,49 @@ str_detect(string_vec, "\\[")
 ```
 
     ## [1]  TRUE FALSE  TRUE  TRUE
+
+## Factors
+
+``` r
+vec_sex = factor(c("male", "male", "female","female"))
+vec_sex
+```
+
+    ## [1] male   male   female female
+    ## Levels: female male
+
+``` r
+as.numeric(vec_sex)
+```
+
+    ## [1] 2 2 1 1
+
+``` r
+vec_sex = fct_relevel(vec_sex, "male")
+vec_sex
+```
+
+    ## [1] male   male   female female
+    ## Levels: male female
+
+``` r
+as.numeric(vec_sex)
+```
+
+    ## [1] 1 1 2 2
+
+``` r
+#str_ has a vast array of functions you can search through
+```
+
+# More Data from Web
+
+``` r
+nsduh_url = "http://samhda.s3-us-gov-west-1.amazonaws.com/s3fs-public/field-uploads/2k15StateFiles/NSDUHsaeShortTermCHG2015.htm"
+
+table_marj = 
+  read_html(nsduh_url) |> 
+  html_table() |> 
+  first() |> 
+  slice(-1)
+```
